@@ -1,5 +1,5 @@
-import { myToLowerCase, fixSpaces, howManyWords, uniqueWords } from "../task_1/string_module.js";
-import assert from "assert"
+import { myToLowerCase, fixSpaces, howManyWords} from "../task_1/string_module.js";
+import assert from "assert";
 
 describe("checking myToLowerCase", ()=>{
     it('tEsTsTrInG to lower case', ()=> {
