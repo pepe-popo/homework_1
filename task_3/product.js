@@ -21,6 +21,15 @@ class Product {
         this.description = description;
     }
 
+    /**
+     * takes a string and an array of objects, filters it and returns an array with matching objects
+     * 
+     * @example
+     * Product.filterProducts('name-contains-dolore&description-ends-nisi&price->150000&quantity-<=35', productArray)
+     * @param {string} str string with conditions
+     * @param {[]} arrOfproducts array of objects
+     * @returns 
+     */
     static filterProducts(str, arrOfproducts) {
         let methods = {
             contains: (prop, value) => prop.includes(value),
