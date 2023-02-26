@@ -2,7 +2,7 @@
  * gets a number and array of words, then returns a string containing the specified number of words 
  * 
  * @example
- * getTestData(5);
+ * getTestString(5);
  * //returns 'sit amet adipiscing elit ut'
  * @param {[]} dictionary array of words
  * @param {number} countWords number of words
