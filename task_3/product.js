@@ -10,7 +10,7 @@
 “name-starts-fd&quantity-=5”
 На выходе возвращает массив, только с подходящими объектами
 возможны (contains, starts, ends для строковых и <, =, >, <=, >= для числовых)*/
-import { getTestData } from "./getTestData_module.js";
+import { getTestString, parseString } from "./utils_module.js";
 import { dictionary } from './lorem.js'
 
 class Product {
@@ -21,27 +21,44 @@ class Product {
         this.description = description;
     }
 
-    static filterProducts(str) {
+    static filterProducts(str, arrOfproducts) {
+        let methods = {
+            contains: (prop, value) => prop.includes(value),
+            starts: (prop, value) => prop.startsWith(value),
+            ends: (prop, value) => prop.endsWith(value),
+            "=": (prop, value) => prop == value,
+            ">": (prop, value) => prop > value,
+            "<": (prop, value) => prop < value,
+            "<=": (prop, value) => prop <= value,
+            ">=": (prop, value) => prop >= value
+        }
 
+        let result = arrOfproducts;
+        for (let arr of parseString(str)) {
+            result = result.filter(product => {
+                return methods[arr[1]](product[arr[0]], arr[2])
+            })
+        }
+        return result;
     }
 
-    #parseString(str) {
 
-    }
 }
 
 let productArray = [];
 
-//Заполнение массива объектами(товарами)
-//Используется функция из файла ./getTestData_module.js и массив слов из файла ./lorem.js
-for (let i = 0; i < 1000; i++) {
+//Заполнение массива объектами(товарами). Лучше заполнить побольше, чтобы наверняка что-то найти 
+//Используется функция из файла ./utils_module.js и массив слов из файла ./lorem.js
+for (let i = 0; i < 100000; i++) {
 
-    let name = getTestData(Math.floor(Math.random() * 4) + 1, dictionary);
-    let description = getTestData(Math.floor(Math.random() * 11) + 5, dictionary);
+    let name = getTestString(Math.floor(Math.random() * 4) + 1, dictionary);
+    let description = getTestString(Math.floor(Math.random() * 11) + 5, dictionary);
     let price = Math.floor(Math.random() * 299499) + 500;
     let quantity = Math.floor(Math.random() * 100) + 1;
 
     productArray.push(new Product(name, price, quantity, description));
 }
 
-console.table(productArray)
+// пример использования, в статический метод класса первым аргументом передается строка запроса, а вторым аргументом массив с объектами который нужно отфильтровать по этой строке
+// пример слов можно взять из файла ./lorem.js
+console.table(Product.filterProducts('name-contains-dolore&description-ends-nisi&price->150000&quantity-<=35', productArray))
