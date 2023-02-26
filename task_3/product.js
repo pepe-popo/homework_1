@@ -31,7 +31,7 @@ class Product {
      * @returns 
      */
     static filterProducts(str, arrOfproducts) {
-        let methods = {
+        const methods = {
             contains: (prop, value) => prop.includes(value),
             starts: (prop, value) => prop.startsWith(value),
             ends: (prop, value) => prop.endsWith(value),
@@ -42,12 +42,10 @@ class Product {
             ">=": (prop, value) => prop >= value
         }
 
-        let result = arrOfproducts;
-        for (let arr of parseString(str)) {
-            result = result.filter(product => {
-                return methods[arr[1]](product[arr[0]], arr[2])
-            })
-        }
+        const parsed = parseString(str);
+        const result = arrOfproducts
+            .filter(product => parsed
+                .every(arr => methods[arr[1]](product[arr[0]], arr[2])));
         return result;
     }
 

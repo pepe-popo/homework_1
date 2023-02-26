@@ -40,6 +40,6 @@ export function parseString(str) {
         .map(arr => {
             if (arr.length == 3) return arr;
 
-            return [arr[0], arr[1].replaceAll(/[0-9]/g, ''), arr[1].replaceAll(/[=<>]/g, '')]
+            return [arr[0], arr[1].replace(/[0-9]/g, ''), arr[1].replace(/[=<>]/g, '')]
         })
 }
