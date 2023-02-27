@@ -106,6 +106,13 @@ export function multiply(a, b) {
         .replace(/^0+/, "") || "0";
 }
 
+/**
+ * gets two numbers and returns the result of their division
+ * 
+ * @param {string} a 
+ * @param {string} b 
+ * @returns 
+ */
 export function divide(a, b) {
     if (b == '0') return Infinity;
 
